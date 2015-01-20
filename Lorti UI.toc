@@ -1,0 +1,14 @@
+## Interface: 60000
+## Author: lorti
+## Version: 2.0.0
+## Title: Lorti UI
+## Notes: Darkens default UI
+
+config.lua
+core\frames.lua
+core\buffs.lua
+core\actionbars.lua
+core\tracker.lua
+core\nameplates.lua
+core\combopoints.lua
+core\dbtracker.lua
