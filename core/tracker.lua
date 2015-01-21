@@ -1,16 +1,16 @@
 local addon, ns = ...
 local cfg = ns.cfg
 
-local bl={2983, 1966, 32406, 114015, 5171, 73651, 5277, 31224,114018,
+local bl={
+		114015, 
+		5171, --snd
+		73651, 5277,  114018,
 		84745, 84746, 84747, 13750, 13877, --combat stuff
 		51713, 31223,  				-- sub stuff
 		32645, 					-- ass stuf
 	}
 
 --some local functions
-local function cu(s)
-	return UnitBuff("player",GetSpellInfo(s))
-end
 local function Cb(i,s)
 	local name,rank,icon=GetSpellInfo(s);
 	local f=CreateFrame("Frame")
@@ -24,7 +24,7 @@ local function Cb(i,s)
 	return f;
 end
 local function vb(s,i,row)
-	local b1,_,_,b4=cu(s)
+	local b1,_,_,b4=UnitBuff("player",GetSpellInfo(s))
 	local f=_G["B"..i]
 	if b1 then 
 		f:Show()
@@ -40,7 +40,7 @@ local function vb(s,i,row)
 end
 local function ub()
 	for i,s in ipairs(bl)do
-		local b,_,_,_,_,_,k=cu(s)
+		local b,_,_,_,_,_,k=UnitBuff("player",GetSpellInfo(s))
 		if b then
 			local vt=math.floor(k-GetTime())
 			if (vt>=60)then 

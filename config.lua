@@ -54,9 +54,9 @@
   }
   cfg.dbtracker = {
     iconsize  = 30, --bs
-    x         = 800,--xb
+    x         = 600,--xb
     y         = -355,--yb
-    br        = 6,-- br
+    br        = 3,-- br
     border    = "BORDER",--bdr
     fontsize  = 12,
     fontstyle = "OUTLINE",

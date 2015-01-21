@@ -6,16 +6,11 @@ local dl={
 	703,
 	1833,
 	84617,
-	--1943, --rapture
-	--91023, --find weak
-	--16511, -- hemo
+	1943, --rapture
+	91023, --find weak
+	16511, -- hemo
 }
 
-
---some local functions
-local function cu(s)
-	return UnitDebuff("target",GetSpellInfo(s))
-end
 local function Cb(i,s)
 	local name,rank,icon=GetSpellInfo(s);
 	local f=CreateFrame("Frame")
@@ -29,15 +24,15 @@ local function Cb(i,s)
 	return f;
 end
 local function vb(s,i,row)
-	local b1,_,_,b4=cu(s)
+	local b1,_,_,d4=UnitDebuff("target",GetSpellInfo(s))
 	local f=_G["B"..i]
 	if b1 then 
 		f:Show()
 		f:SetPoint(cfg.dbtracker.anch, 
 				   cfg.dbtracker.x+(cfg.dbtracker.iconsize+2)*math.ceil((row-1)%cfg.dbtracker.br),
 				   cfg.dbtracker.y-(cfg.dbtracker.iconsize)*math.ceil(row/cfg.dbtracker.br))
-		if(b4>1)then
-			f.f:SetText(b4)
+		if(d4>1)then
+			f.f:SetText(d4)
 		end
 		row=row+1;
 	end
@@ -45,7 +40,7 @@ local function vb(s,i,row)
 end
 local function ub()
 	for i,s in ipairs(dl)do
-		local b,_,_,_,_,_,k=cu(s)
+		local b,_,_,_,_,_,k=UnitDebuff("target",GetSpellInfo(s))
 		if b then
 			local vt=math.floor(k-GetTime())
 			if (vt>=60)then 

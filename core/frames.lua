@@ -301,14 +301,14 @@ end)
 PlayerFrame:SetScale(Scale)
 PlayerFrame:SetMovable( true );
 PlayerFrame:ClearAllPoints();
-PlayerFrame:SetPoint( "CENTER", -200, 325);
+PlayerFrame:SetPoint( "CENTER", -625, 350);
 PlayerFrame:SetUserPlaced(true);
 PlayerFrame:SetMovable( false );
 --target
-TargetFrame:SetScale(Scale*1.3)
+TargetFrame:SetScale(Scale)
 TargetFrame:SetMovable( true );
 TargetFrame:ClearAllPoints();
-TargetFrame:SetPoint( "CENTER", 50, 250);
+TargetFrame:SetPoint( "CENTER", -350, 200);
 TargetFrame:SetUserPlaced(true);
 TargetFrame:SetMovable( false );
 --focus	
@@ -340,3 +340,54 @@ end
 end
 
 hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", UpdateHealthValues)
+
+local g = CreateFrame("Frame")
+g:RegisterEvent("MERCHANT_SHOW")
+
+g:SetScript("OnEvent", function()  
+        local bag, slot
+        for bag = 0, 4 do
+                for slot = 0, GetContainerNumSlots(bag) do
+                        local link = GetContainerItemLink(bag, slot)
+                        if link and (select(3, GetItemInfo(link)) == 0) then
+                                UseContainerItem(bag, slot)
+                        end
+                end
+        end
+
+        if(CanMerchantRepair()) then
+                local cost = GetRepairAllCost()
+                if cost > 0 then
+                        local money = GetMoney()
+                        if IsInGuild() then
+                                local guildMoney = GetGuildBankWithdrawMoney()
+                                if guildMoney > GetGuildBankMoney() then
+                                        guildMoney = GetGuildBankMoney()
+                                end
+                                if guildMoney > cost and CanGuildBankRepair() then
+                                        RepairAllItems(1)
+                                        print(format("|cfff07100Repair cost covered by G-Bank: %.1fg|r", cost * 0.0001))
+                                        return
+                                end
+                        end
+                        if money > cost then
+                                RepairAllItems()
+                                print(format("|cffead000Repair cost: %.1fg|r", cost * 0.0001))
+                        else
+                                print("Not enough gold to cover the repair cost.")
+                        end
+                end
+        end
+end)
+
+  SlashCmdList["CLCE"] = function() CombatLogClearEntries() end
+SLASH_CLCE1 = "/clc"
+
+SlashCmdList["TICKET"] = function() ToggleHelpFrame() end
+SLASH_TICKET1 = "/gm"
+
+SlashCmdList["READYCHECK"] = function() DoReadyCheck() end
+SLASH_READYCHECK1 = '/rc'
+
+SlashCmdList["CHECKROLE"] = function() InitiateRolePoll() end
+SLASH_CHECKROLE1 = '/cr'
