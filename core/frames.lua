@@ -231,39 +231,6 @@ local cfg = ns.cfg
 		end 
 	end)
 
---Big Debuffs--
-  hooksecurefunc("TargetFrame_UpdateAuraPositions", function(self, auraName, numAuras, numOppositeAuras,largeAuraList, updateFunc, maxRowWidth, offsetX)
-    local AURA_OFFSET_Y = 3
-    local LARGE_AURA_SIZE = 30 -- развер ВАШИХ баффов/дебаффов.
-    local SMALL_AURA_SIZE = 15 -- развер чужих баффов/дебаффов.
-    local size
-    local offsetY = AURA_OFFSET_Y
-    local rowWidth = 0
-    local firstBuffOnRow = 1
-    for i=1, numAuras do
-     if ( largeAuraList[i] ) then
-       size = LARGE_AURA_SIZE
-       offsetY = AURA_OFFSET_Y + AURA_OFFSET_Y
-     else
-       size = SMALL_AURA_SIZE
-     end
-     if ( i == 1 ) then
-       rowWidth = size
-       self.auraRows = self.auraRows + 1
-     else
-       rowWidth = rowWidth + size + offsetX
-     end
-     if ( rowWidth > maxRowWidth ) then
-       updateFunc(self, auraName, i, numOppositeAuras, firstBuffOnRow, size, offsetX, offsetY)
-       rowWidth = size
-       self.auraRows = self.auraRows + 1
-       firstBuffOnRow = i
-       offsetY = AURA_OFFSET_Y
-     else
-       updateFunc(self, auraName, i, numOppositeAuras, i - 1, size, offsetX, offsetY)
-     end
-    end
-    end)
 --set SetTexture
 hooksecurefunc(getmetatable(PlayerFrameHealthBar).__index,"Show",function(s)
     if s:GetParent().healthbar then
@@ -297,7 +264,7 @@ addon:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 addon:SetScript("OnEvent", function()
 colour(sb, "mouseover")
 end)
-
+--Player
 PlayerFrame:SetScale(Scale)
 PlayerFrame:SetMovable( true );
 PlayerFrame:ClearAllPoints();
@@ -325,22 +292,7 @@ UICC = "Interface\\TargetingFrame\\UI-Classes-Circles"
 CIT = CLASS_ICON_TCOORDS
 hooksecurefunc(UFP,function(self) if self.portrait then if UnitIsPlayer(self.unit) and UnitIsVisible(self.unit) then self.portrait:SetTexture(UICC) self.portrait:SetTexCoord(unpack(CIT[select(2,UnitClass(self.unit))])) else self.portrait:SetTexCoord(0,1,0,1) end end end)
 
-
---textures
-local FrameList = {"Player", "Target", "Focus"}
-
-local function UpdateHealthValues(...)
-for i = 1, #FrameList do 
-local FrameName = FrameList[i]
-local Health = AbbreviateLargeNumbers(UnitHealth(FrameName))
-local HealthMax = AbbreviateLargeNumbers(UnitHealthMax(FrameName))
-local HealthPercent = (UnitHealth(FrameName)/UnitHealthMax(FrameName))*100
-_G[FrameName.."FrameHealthBar"].TextString:SetText(Health.." ("..format("%.0f",HealthPercent).."%)")
-end
-end
-
-hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", UpdateHealthValues)
-
+--merchant tweak
 local g = CreateFrame("Frame")
 g:RegisterEvent("MERCHANT_SHOW")
 
@@ -380,7 +332,7 @@ g:SetScript("OnEvent", function()
         end
 end)
 
-  SlashCmdList["CLCE"] = function() CombatLogClearEntries() end
+SlashCmdList["CLCE"] = function() CombatLogClearEntries() end
 SLASH_CLCE1 = "/clc"
 
 SlashCmdList["TICKET"] = function() ToggleHelpFrame() end
@@ -391,3 +343,28 @@ SLASH_READYCHECK1 = '/rc'
 
 SlashCmdList["CHECKROLE"] = function() InitiateRolePoll() end
 SLASH_CHECKROLE1 = '/cr'
+
+--DR Tracker
+--Woundman DRTracker
+USD="UNIT_SPELLCAST_SUCCEEDED";OT="OnEvent";FR="Frame";RF=CreateFrame;RD="Border";UE=UnitName
+CS=RF(FR) CS.c=RF("Cooldown","CST",CS.t) CS:RegisterEvent(USD) 
+CS.c:SetAllPoints(CS) CS:SetPoint("TOPRIGHT",PlayerFrame,-2,-100)CS:SetSize(22,22)CS.t=CS:CreateTexture(nil,RD)CS.t:SetAllPoints()CS.t:SetTexture("Interface\\Icons\\ability_cheapshot")
+CS:SetScript(OT,function(self,event,...)if UE(select(1,...))==UE("player")and select(5,...)==1833 then CST:SetCooldown(GetTime(),23) end if UE(select(1,...))==UE("player")and select(5,...)==408 then CST:SetCooldown(GetTime(),25)end end)
+SP=RF(FR) SP.c=RF("Cooldown","SAP",SP.t) SP:RegisterEvent(USD) 
+SP.c:SetAllPoints(SP) SP:SetPoint("TOPRIGHT",PlayerFrame,-25,-100)SP:SetSize(22,22)SP.t=SP:CreateTexture(nil,RD)SP.t:SetAllPoints()SP.t:SetTexture("Interface\\Icons\\ability_sap")
+SP:SetScript(OT,function(self,event,...)if UE(select(1,...))==UE("player")and select(5,...)==6770 then SAP:SetCooldown(GetTime(),27)end if UE(select(1,...))==UE("player")and select(5,...)==1776 then SAP:SetCooldown(GetTime(),23)end end)
+local FrameList = {"Player", "Target", "Focus"}
+
+local function UpdateHealthValues(...)
+for i = 1, #FrameList do 
+local FrameName = FrameList[i]
+local Health = AbbreviateLargeNumbers(UnitHealth(FrameName))
+local HealthMax = AbbreviateLargeNumbers(UnitHealthMax(FrameName))
+local HealthPercent = (UnitHealth(FrameName)/UnitHealthMax(FrameName))*100
+local Power = AbbreviateLargeNumbers(UnitPower(FrameName))
+_G[FrameName.."FrameHealthBar"].TextString:SetText(Health.." @ "..format("%.0f",HealthPercent).."%")
+_G[FrameName.."FrameManaBar"].TextString:SetText(Power)
+end
+end
+
+hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", UpdateHealthValues)
