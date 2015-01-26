@@ -1,22 +1,16 @@
 ﻿  -- // Lorti UI
   -- // Lorti - 2014
-
   -----------------------------
   -- INIT
   -----------------------------
-
   --get the addon namespace
   local addon, ns = ...
-
   --generate a holder for the config data
   local cfg = CreateFrame("Frame")
-
   -----------------------------
   -- CONFIG
   -----------------------------
-
 -- action bars settings
-
   cfg.textures = {
     normal            = "Interface\\AddOns\\Lorti UI\\textures\\gloss",
     flash             = "Interface\\AddOns\\Lorti UI\\textures\\flash",
@@ -35,36 +29,22 @@
 	  anch       = "CENTER",
 	  x          = 0,
 	  y          = 100,
-	  sizeX      = 300,
-	  sizeY      = 300,
+	  sizeX      = 600,
+	  sizeY      = 600,
   }
-  cfg.tracker = {
-	  iconsize  = 30, --bs
-	  x         = 475,--xb
-	  y         = -355,--yb
-	  br        = 3,-- br
-	  border    = "BORDER",--bdr
-	  fontsize  = 12,
-	  fontstyle = "OUTLINE",
-	  anch      = "TOPLEFT",
-	  font      = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf",
-	  textanch  = "CENTER",
-	  textX     = 0,
-	  textY     = 0,
+  cfg.tracker = 
+  {
+	  size = 25,
+	  x = 0,
+	  y = -8,
+	  anch = "TOPLEFT",
   }
-  cfg.dbtracker = {
-    iconsize  = 30, --bs
-    x         = 600,--xb
-    y         = -355,--yb
-    br        = 3,-- br
-    border    = "BORDER",--bdr
-    fontsize  = 12,
-    fontstyle = "OUTLINE",
-    anch      = "TOPLEFT",
-    font      = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf",
-    textanch  = "CENTER",
-    textX     = 0,
-    textY     = 0,
+  cfg.dbtracker = 
+  {
+	  size = 25,
+	  x = 0,
+	  y = -8,
+	  anch = "TOPLEFT",
   }
   cfg.background = {
     showbg            = true,  --show an background image?
@@ -206,6 +186,6 @@
   --hand the config to the namespace for usage in other lua files (remember: those lua files must be called after the cfg.lua)
   ns.cfg = cfg
 
-Scale = 1.50;
+Scale = 1.25;
 BarScale = 0.75;
 LARGE_NUMBER_SEPERATOR = ","

@@ -1,78 +1,48 @@
 local addon, ns = ...
 local cfg = ns.cfg
 
-local dl={
-	408,
-	703,
-	1833,
-	84617,
-	1943, --rapture
-	91023, --find weak
-	16511, -- hemo
-}
+local dl={408,703,1833,84617,1943,91023,16511,}
+local lastX = cfg.dbtracker.x;
 
-local function Cb(i,s)
-	local name,rank,icon=GetSpellInfo(s);
-	local f=CreateFrame("Frame")
-	f:SetSize(cfg.dbtracker.iconsize, cfg.dbtracker.iconsize)
-	f.t=f:CreateTexture(nil, cfg.dbtracker.border)
-	f.t:SetAllPoints(true)
-	f.t:SetTexture(icon)
-	f.f=f:CreateFontString(nil, cfg.dbtracker.border)
-	f.f:SetFont(cfg.dbtracker.font, cfg.dbtracker.fontsize, cfg.dbtracker.fontstyle)
-	f.f:SetPoint("BOTTOMRIGHT",0,0)
-	return f;
-end
-local function vb(s,i,row)
-	local b1,_,_,d4=UnitDebuff("target",GetSpellInfo(s))
-	local f=_G["B"..i]
-	if b1 then 
-		f:Show()
-		f:SetPoint(cfg.dbtracker.anch, 
-				   cfg.dbtracker.x+(cfg.dbtracker.iconsize+2)*math.ceil((row-1)%cfg.dbtracker.br),
-				   cfg.dbtracker.y-(cfg.dbtracker.iconsize)*math.ceil(row/cfg.dbtracker.br))
-		if(d4>1)then
-			f.f:SetText(d4)
-		end
-		row=row+1;
-	end
-	return row;
-end
-local function ub()
-	for i,s in ipairs(dl)do
-		local b,_,_,_,_,_,k=UnitDebuff("target",GetSpellInfo(s))
-		if b then
-			local vt=math.floor(k-GetTime())
-			if (vt>=60)then 
-				vt=math.ceil(vt/60)_G["B"..i].c:SetText(vt.."m")
-			elseif vt >= 0 then 
-				_G["B"..i].c:SetText(vt.."s")
-			end
-		end
-	end
-end
-local function Cc(f)
-	f.c=f:CreateFontString(nil,cfg.dbtracker.border)
-	f.c:SetFont(cfg.dbtracker.font,cfg.dbtracker.fontsize,cfg.dbtracker.fontstyle)
-	f.c:SetPoint(cfg.dbtracker.textanch, cfg.dbtracker.textX, cfg.dbtracker.textY)
-end
-local function db()
-	for i in ipairs(dl)do
-		_G["B"..i]:Hide()
-	end
-end
+for i,s in ipairs(dl) do
+	local f = CreateFrame("Cooldown", nil, TargetFrame, "CooldownFrameTemplate")
+	f:SetFrameLevel(TargetFrame:GetFrameLevel() + 4)
+	f:SetDrawEdge(false)
+	f:ClearAllPoints()
 
--- start dbtracker
-for i,s in ipairs( dl)do _G["B"..i]=Cb(i,s)Cc(_G["B"..i])_G["B"..i]:Hide()end
-local function bb()
-	db()
-	local bw=1;
-	for i,s in ipairs( dl)do
-		bw=vb(s,i,bw)
+	f:SetPoint(cfg.dbtracker.anch, "TargetFrame", cfg.dbtracker.anch, lastX, cfg.dbtracker.y)
+	f:SetSize(cfg.dbtracker.size, cfg.dbtracker.size)
+	f.Icon = CreateFrame("Frame", nil, f)
+	f.Icon:SetFrameLevel(f:GetFrameLevel() - 1)
+	f.Icon:SetAllPoints()
+	f.Icon.Texture = f.Icon:CreateTexture(nil, "ARTWORK")
+	f.Icon.Texture:SetPoint("TOPLEFT", -1, 2)
+	f.Icon.Texture:SetSize(cfg.dbtracker.size, cfg.dbtracker.size)
+	SetPortraitToTexture(f.Icon.Texture, select(3, GetSpellInfo(s)))
+	f.Icon.Border = CreateFrame("Frame", nil, f.Icon)
+	f.Icon.Border:SetFrameLevel(f:GetFrameLevel() + 1)
+	f.Icon.Border:SetAllPoints()
+	f.Icon.Border.Texture = f.Icon.Border:CreateTexture(nil, "ARTWORK")
+	f.Icon.Border.Texture:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+	if IsAddOnLoaded("Lorti UI") then
+		f.Icon.Border.Texture:SetVertexColor(.05,.05,.05)
 	end
-end
+	f.Icon.Border.Texture:SetPoint("TOPLEFT", -7, 7)
+	f.Icon.Border.Texture:SetSize(63,63)
 
-dk=CreateFrame("Frame")
-dk:SetScript("OnEvent",bb)
-dk:SetScript("OnUpdate",ub)
-dk:RegisterEvent("UNIT_AURA")
+	f:RegisterEvent("UNIT_AURA")
+	f:SetScript("OnEvent", function(self, event, unit)
+	f.CheckAura(unit)
+	end)
+	function f.CheckAura(unit)
+		local spellname = GetSpellInfo(s)
+		local _, _, _, _, _, duration, expirationTime, unitCaster, _, _, id = UnitDebuff("target", spellname)
+		if id and unitCaster == "player" then
+			f:Show()
+			f:SetCooldown(expirationTime - duration - 0.5, duration)
+		return
+	end
+	f:Hide()
+	end
+	lastX = lastX + cfg.dbtracker.size + 2;
+end
