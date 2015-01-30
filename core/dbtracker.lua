@@ -19,16 +19,6 @@ for i,s in ipairs(dl) do
 	f.Icon.Texture:SetPoint("TOPLEFT", -1, 2)
 	f.Icon.Texture:SetSize(cfg.dbtracker.size, cfg.dbtracker.size)
 	SetPortraitToTexture(f.Icon.Texture, select(3, GetSpellInfo(s)))
-	f.Icon.Border = CreateFrame("Frame", nil, f.Icon)
-	f.Icon.Border:SetFrameLevel(f:GetFrameLevel() + 1)
-	f.Icon.Border:SetAllPoints()
-	f.Icon.Border.Texture = f.Icon.Border:CreateTexture(nil, "ARTWORK")
-	f.Icon.Border.Texture:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
-	if IsAddOnLoaded("Lorti UI") then
-		f.Icon.Border.Texture:SetVertexColor(.05,.05,.05)
-	end
-	f.Icon.Border.Texture:SetPoint("TOPLEFT", -7, 7)
-	f.Icon.Border.Texture:SetSize(63,63)
 
 	f:RegisterEvent("UNIT_AURA")
 	f:SetScript("OnEvent", function(self, event, unit)

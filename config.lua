@@ -34,15 +34,15 @@
   }
   cfg.tracker = 
   {
-	  size = 25,
-	  x = 0,
-	  y = -8,
+	  size = 45,
+	  x = 1,
+	  y = -8*8,
 	  anch = "TOPLEFT",
   }
   cfg.dbtracker = 
   {
-	  size = 25,
-	  x = 0,
+	  size = 45,
+	  x = 1,
 	  y = -8,
 	  anch = "TOPLEFT",
   }
@@ -186,6 +186,6 @@
   --hand the config to the namespace for usage in other lua files (remember: those lua files must be called after the cfg.lua)
   ns.cfg = cfg
 
-Scale = 1.25;
+Scale = 1.45;
 BarScale = 0.75;
 LARGE_NUMBER_SEPERATOR = ","

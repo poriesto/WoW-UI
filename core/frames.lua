@@ -268,14 +268,14 @@ end)
 PlayerFrame:SetScale(Scale)
 PlayerFrame:SetMovable( true );
 PlayerFrame:ClearAllPoints();
-PlayerFrame:SetPoint( "CENTER", -250, 155);
+PlayerFrame:SetPoint( "CENTER", -250, 315);
 PlayerFrame:SetUserPlaced(true);
 PlayerFrame:SetMovable( false );
 --target
 TargetFrame:SetScale(Scale)
 TargetFrame:SetMovable( true );
 TargetFrame:ClearAllPoints();
-TargetFrame:SetPoint( "CENTER", 200, 155);
+TargetFrame:SetPoint( "CENTER", 200, 315);
 TargetFrame:SetUserPlaced(true);
 TargetFrame:SetMovable( false );
 --focus	
