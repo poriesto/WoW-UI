@@ -280,12 +280,7 @@ TargetFrame:SetUserPlaced(true);
 TargetFrame:SetMovable( false );
 --focus	
 FocusFrame:SetScale(Scale) 
---actionbar settings
-MainMenuBar:SetScale(BarScale)
-MultiBarBottomRight:SetScale(1)
-MultiBarBottomLeft:SetScale(1)
-MultiBarLeft:SetScale(BarScale)
-MultiBarRight:SetScale(BarScale)
+
 --class icons on unit frames
 UFP = "UnitFramePortrait_Update"
 UICC = "Interface\\TargetingFrame\\UI-Classes-Circles"
@@ -331,40 +326,3 @@ g:SetScript("OnEvent", function()
                 end
         end
 end)
-
-SlashCmdList["CLCE"] = function() CombatLogClearEntries() end
-SLASH_CLCE1 = "/clc"
-
-SlashCmdList["TICKET"] = function() ToggleHelpFrame() end
-SLASH_TICKET1 = "/gm"
-
-SlashCmdList["READYCHECK"] = function() DoReadyCheck() end
-SLASH_READYCHECK1 = '/rc'
-
-SlashCmdList["CHECKROLE"] = function() InitiateRolePoll() end
-SLASH_CHECKROLE1 = '/cr'
-
---DR Tracker
---Woundman DRTracker
-USD="UNIT_SPELLCAST_SUCCEEDED";OT="OnEvent";FR="Frame";RF=CreateFrame;RD="Border";UE=UnitName
-CS=RF(FR) CS.c=RF("Cooldown","CST",CS.t) CS:RegisterEvent(USD) 
-CS.c:SetAllPoints(CS) CS:SetPoint("TOPRIGHT",PlayerFrame,-2,-100)CS:SetSize(22,22)CS.t=CS:CreateTexture(nil,RD)CS.t:SetAllPoints()CS.t:SetTexture("Interface\\Icons\\ability_cheapshot")
-CS:SetScript(OT,function(self,event,...)if UE(select(1,...))==UE("player")and select(5,...)==1833 then CST:SetCooldown(GetTime(),23) end if UE(select(1,...))==UE("player")and select(5,...)==408 then CST:SetCooldown(GetTime(),25)end end)
-SP=RF(FR) SP.c=RF("Cooldown","SAP",SP.t) SP:RegisterEvent(USD) 
-SP.c:SetAllPoints(SP) SP:SetPoint("TOPRIGHT",PlayerFrame,-25,-100)SP:SetSize(22,22)SP.t=SP:CreateTexture(nil,RD)SP.t:SetAllPoints()SP.t:SetTexture("Interface\\Icons\\ability_sap")
-SP:SetScript(OT,function(self,event,...)if UE(select(1,...))==UE("player")and select(5,...)==6770 then SAP:SetCooldown(GetTime(),27)end if UE(select(1,...))==UE("player")and select(5,...)==1776 then SAP:SetCooldown(GetTime(),23)end end)
-local FrameList = {"Player", "Target", "Focus"}
-
-local function UpdateHealthValues(...)
-for i = 1, #FrameList do 
-local FrameName = FrameList[i]
-local Health = AbbreviateLargeNumbers(UnitHealth(FrameName))
-local HealthMax = AbbreviateLargeNumbers(UnitHealthMax(FrameName))
-local HealthPercent = (UnitHealth(FrameName)/UnitHealthMax(FrameName))*100
-local Power = AbbreviateLargeNumbers(UnitPower(FrameName))
-_G[FrameName.."FrameHealthBar"].TextString:SetText(Health.." @ "..format("%.0f",HealthPercent).."%")
-_G[FrameName.."FrameManaBar"].TextString:SetText(Power)
-end
-end
-
-hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", UpdateHealthValues)
