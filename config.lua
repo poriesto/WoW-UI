@@ -21,8 +21,8 @@
     buttonback        = "Interface\\AddOns\\Lorti UI\\textures\\button_background",
     buttonbackflat    = "Interface\\AddOns\\Lorti UI\\textures\\button_background_flat",
     outer_shadow      = "Interface\\AddOns\\Lorti UI\\textures\\outer_shadow",
-	frames			  = "Interface\\TokemFrame\\UI-TokenFrame-CategoryButton",
-  }
+	frames            = "Interface\\AddOns\\Lorti UI\\textures\\swag"  
+}
   cfg.combopoints = {
 	  background = "BACKGROUND",
 	  text       = "PVPInfoTextFont",
@@ -34,17 +34,17 @@
   }
   cfg.tracker = 
   {
-	  size = 45,
-	  x = 1,
-	  y = -8*8,
-	  anch = "TOPLEFT",
+	  size = 35,
+	  x = 175,
+	  y = 0,
+	  anch = "CENTER",
   }
   cfg.dbtracker = 
   {
-	  size = 45,
-	  x = 1,
-	  y = -8,
-	  anch = "TOPLEFT",
+	  size = 35,
+	  x = -105,
+	  y = 0,
+	  anch = "CENTER",
   }
   cfg.background = {
     showbg            = true,  --show an background image?
@@ -186,6 +186,9 @@
   --hand the config to the namespace for usage in other lua files (remember: those lua files must be called after the cfg.lua)
   ns.cfg = cfg
 
-Scale = 1.45;
+Scale = 1.1;
+frameAnch = "TOPLEFT"
+playerPosY = 0;
+playerPosX = 0;
 BarScale = 0.75;
 LARGE_NUMBER_SEPERATOR = ","

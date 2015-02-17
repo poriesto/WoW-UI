@@ -411,7 +411,5 @@ a:RegisterEvent("PLAYER_LOGIN")
 a:SetScript("OnEvent", init)
 --actionbar settings
 MainMenuBar:SetScale(BarScale)
-MultiBarBottomRight:SetScale(1)
-MultiBarBottomLeft:SetScale(1)
 MultiBarLeft:SetScale(BarScale)
 MultiBarRight:SetScale(BarScale)

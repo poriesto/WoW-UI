@@ -20,6 +20,8 @@ local cfg = ns.cfg
 	  'Вне зоны действия.',
 	  'Этот прием может только завершать серию.',
 	  'Требуется: Незаметность',
+	  'Вы смотрите мимо цели',
+	  'Уже действует более мощное заклинание',
 
 	  'Ability is not ready yet',
  	  'Another action is in progress',
@@ -237,12 +239,14 @@ hooksecurefunc(getmetatable(PlayerFrameHealthBar).__index,"Show",function(s)
         if s.st == nil then
             s:SetStatusBarTexture(cfg.textures.frames)
 			s:GetStatusBarTexture():SetDesaturated(1)
-            s:GetStatusBarTexture():SetTexCoord(0, 1, .609375, .796875)
+			s:GetStatusBarTexture():SetTexCoord(0, 1, .609375, .796875)
             s:GetStatusBarTexture():SetHorizTile(true)
             s.st = true
-        end
+		end
     end
 end)
+
+
 --class color healthbar
 local UnitIsPlayer, UnitIsConnected, UnitClass, RAID_CLASS_COLORS =
 UnitIsPlayer, UnitIsConnected, UnitClass, RAID_CLASS_COLORS
@@ -264,28 +268,28 @@ addon:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 addon:SetScript("OnEvent", function()
 colour(sb, "mouseover")
 end)
---Player
-PlayerFrame:SetScale(Scale)
-PlayerFrame:SetMovable( true );
-PlayerFrame:ClearAllPoints();
-PlayerFrame:SetPoint( "CENTER", -250, 315);
-PlayerFrame:SetUserPlaced(true);
-PlayerFrame:SetMovable( false );
---target
-TargetFrame:SetScale(Scale)
-TargetFrame:SetMovable( true );
-TargetFrame:ClearAllPoints();
-TargetFrame:SetPoint( "CENTER", 200, 315);
-TargetFrame:SetUserPlaced(true);
-TargetFrame:SetMovable( false );
+--
+local targetPosY = playerPosY;
+local targetPosX = playerPosX*(-1) + 255;
+print(targetPosX);
+
 --focus	
 FocusFrame:SetScale(Scale) 
 
---class icons on unit frames
-UFP = "UnitFramePortrait_Update"
-UICC = "Interface\\TargetingFrame\\UI-Classes-Circles"
-CIT = CLASS_ICON_TCOORDS
-hooksecurefunc(UFP,function(self) if self.portrait then if UnitIsPlayer(self.unit) and UnitIsVisible(self.unit) then self.portrait:SetTexture(UICC) self.portrait:SetTexCoord(unpack(CIT[select(2,UnitClass(self.unit))])) else self.portrait:SetTexCoord(0,1,0,1) end end end)
+local frames = {"PlayerFrame", "TargetFrame"};
+for i = 1, #frames do
+	local FrameName = frames[i]
+	_G[FrameName]:SetScale(Scale);
+	_G[FrameName]:SetMovable(true);
+	_G[FrameName]:ClearAllPoints();
+	if i > 1 then
+		_G[FrameName]:SetPoint(frameAnch, targetPosX, targetPosY);
+	else
+		_G[FrameName]:SetPoint(frameAnch, playerPosX, playerPosY);
+	end
+	_G[FrameName]:SetUserPlaced(true);
+	_G[FrameName]:SetMovable(false);
+end
 
 --merchant tweak
 local g = CreateFrame("Frame")
@@ -326,3 +330,19 @@ g:SetScript("OnEvent", function()
                 end
         end
 end)
+
+local FrameList = {"Player", "Target", "Focus"}
+
+local function UpdateHealthValues(...)
+	for i = 1, #FrameList do 
+		local FrameName = FrameList[i]
+		local Health = AbbreviateLargeNumbers(UnitHealth(FrameName))
+		local HealthMax = AbbreviateLargeNumbers(UnitHealthMax(FrameName))
+		local HealthPercent = (UnitHealth(FrameName)/UnitHealthMax(FrameName))*100
+		local powerType, powerTypeString = UnitPowerType(FrameName)
+		local Power = UnitPower(FrameName, powerType)
+		_G[FrameName.."FrameHealthBar"].TextString:SetText(Health.."  | "..format("%.0f",HealthPercent).."%")
+		_G[FrameName.."FrameManaBar"].TextString:SetText(Power)
+	end
+end
+hooksecurefunc("TextStatusBar_UpdateTextStringWithValues", UpdateHealthValues)

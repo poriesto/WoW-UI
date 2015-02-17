@@ -8,8 +8,4 @@ config.lua
 core\frames.lua
 core\buffs.lua
 core\actionbars.lua
-core\tracker.lua
 core\nameplates.lua
-core\combopoints.lua
-core\dbtracker.lua
-core\snd.lua

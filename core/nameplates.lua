@@ -31,22 +31,22 @@ CreateFrame('frame'):SetScript('OnUpdate', function(self, elapsed)
 end)
 
 --float combat SetText
-local f = CreateFrame("FRAME");
-f:SetScript("OnEvent", function(self,event,...)
-                        local arg1 =...;        
-                        if (arg1=="Blizzard_CombatText") then
-                          f:UnregisterEvent("ADDON_LOADED");
-                          hooksecurefunc("CombatText_UpdateDisplayedMessages",
-                          function ()
-                                COMBAT_TEXT_LOCATIONS =
-                                {startX  = 100,
-                                startY = 384 * COMBAT_TEXT_Y_SCALE,
-                                endX =200,
-                                endY = 609 * COMBAT_TEXT_Y_SCALE};
-                          end);
-                        end
-                        end);
-f:RegisterEvent("ADDON_LOADED");
+--local f = CreateFrame("FRAME");
+ --f:SetScript("OnEvent", function(self,event,...)
+ --                       local arg1 =...;        
+ --                       if (arg1=="Blizzard_CombatText") then
+ --                         f:UnregisterEvent("ADDON_LOADED");
+  --                        hooksecurefunc("CombatText_UpdateDisplayedMessages",
+  --                        function ()
+   --                             COMBAT_TEXT_LOCATIONS =
+   --                             {startX  = 100,
+   --                             startY = 384 * COMBAT_TEXT_Y_SCALE,
+  --                              endX =200,
+   --                             endY = 609 * COMBAT_TEXT_Y_SCALE};
+    --                      end);
+     --                   end
+      --                  end);
+ --f:RegisterEvent("ADDON_LOADED");
 
 local fontName = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf"
 local fontHeight = 40
