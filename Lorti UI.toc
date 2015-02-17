@@ -9,3 +9,4 @@ core\frames.lua
 core\buffs.lua
 core\actionbars.lua
 core\nameplates.lua
+core\animation.lua
