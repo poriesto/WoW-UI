@@ -63,14 +63,14 @@
   }
 
   cfg.hotkeys = {
-    show            = true,
-    fontsize        = 12,
+    show            = false,
+    fontsize        = 11,
     pos1             = { a1 = "TOPRIGHT", x = 0, y = 0 },
     pos2             = { a1 = "TOPLEFT", x = 0, y = 0 }, --important! two points are needed to make the hotkeyname be inside of the button
   }
 
   cfg.macroname = {
-    show            = true,
+    show            = false,
     fontsize        = 12,
     pos1             = { a1 = "BOTTOMLEFT", x = 0, y = 0 },
     pos2             = { a1 = "BOTTOMRIGHT", x = 0, y = 0 }, --important! two points are needed to make the macroname be inside of the button
@@ -86,7 +86,7 @@
     spacing         = 0,
   }
 
-  cfg.font = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf"
+  cfg.font = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf"
 
   --adjust the oneletter abbrev?
   cfg.adjustOneletterAbbrev = true
@@ -127,12 +127,12 @@
       padding           = 4,
     },
     duration = {
-      font              = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf",
+      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf",
       size              = 11,
       pos               = { a1 = "BOTTOM", x = 0, y = 0 },
     },
     count = {
-      font              = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf",
+      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf",
       size              = 11,
       pos               = { a1 = "TOPRIGHT", x = 0, y = 0 },
     },
@@ -166,12 +166,12 @@
       padding           = 4,
     },
     duration = {
-      font              = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf",
-      size              = 11,
+      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf",
+	  size              = 11,
       pos               = { a1 = "BOTTOM", x = 0, y = 0 },
     },
     count = {
-      font              = "Interface\\AddOns\\Lorti UI\\fonts\\ZsRInnho.otf",
+      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf",
       size              = 11,
       pos               = { a1 = "TOPRIGHT", x = 0, y = 0 },
     },
@@ -190,5 +190,5 @@ Scale = 1.1;
 frameAnch = "TOPLEFT"
 playerPosY = 0;
 playerPosX = 0;
-BarScale = 0.75;
+BarScale = 0.92;
 LARGE_NUMBER_SEPERATOR = ","

@@ -271,7 +271,6 @@ end)
 --
 local targetPosY = playerPosY;
 local targetPosX = playerPosX*(-1) + 255;
-print(targetPosX);
 
 --focus	
 FocusFrame:SetScale(Scale) 
@@ -332,7 +331,6 @@ g:SetScript("OnEvent", function()
 end)
 
 local FrameList = {"Player", "Target", "Focus"}
-
 local function UpdateHealthValues(...)
 	for i = 1, #FrameList do 
 		local FrameName = FrameList[i]

@@ -349,7 +349,6 @@
       end
     end
     SpellFlyout:HookScript("OnShow",checkForFlyoutButtons)
-
     --dominos styling
     if dominos then
       --print("Dominos found")

@@ -51,26 +51,31 @@ local animate = function(button)
      return true
 end
 
-hooksecurefunc('ActionButton_UpdateHotkeys', function(button, buttonType)
-     if InCombatLockdown() then return end
-     if not button.hooked then
-          local id, actionButtonType, key
-          if not actionButtonType then
-               actionButtonType = string.upper(button:GetName())
-               actionButtonType = replace(actionButtonType, 'BOTTOMLEFT', '1')
-               actionButtonType = replace(actionButtonType, 'BOTTOMRIGHT', '2')
-               actionButtonType = replace(actionButtonType, 'RIGHT', '3')
-               actionButtonType = replace(actionButtonType, 'LEFT', '4')
-               actionButtonType = replace(actionButtonType, 'MULTIBAR', 'MULTIACTIONBAR')
-          end
-     
-          local key = GetBindingKey(actionButtonType)
-          if key then
-               button:RegisterForClicks("AnyDown")
-               SetOverrideBinding(button, true, key, 'CLICK '..button:GetName()..':LeftButton')
-          end
-          button.AnimateThis = animate
-          SecureHandlerWrapScript(button, "OnClick", button, [[ control:CallMethod("AnimateThis", self) ]])
-          button.hooked = true
-     end
-end)
+local function Anum(button, buttonType)
+	if InCombatLockdown() then return end
+	     if not button.hooked then
+	          local id, actionButtonType, key
+	          if not actionButtonType then
+	               actionButtonType = string.upper(button:GetName())
+	               actionButtonType = replace(actionButtonType, 'BOTTOMLEFT', '1')
+	               actionButtonType = replace(actionButtonType, 'BOTTOMRIGHT', '2')
+	               actionButtonType = replace(actionButtonType, 'RIGHT', '3')
+	               actionButtonType = replace(actionButtonType, 'LEFT', '4')
+	               actionButtonType = replace(actionButtonType, 'MULTIBAR', 'MULTIACTIONBAR')
+	          end
+	     
+	          local key = GetBindingKey(actionButtonType)
+	          if key then
+	               button:RegisterForClicks("AnyDown")
+	               SetOverrideBinding(button, true, key, 'CLICK '..button:GetName()..':LeftButton')
+	          end
+	          button.AnimateThis = animate
+	          SecureHandlerWrapScript(button, "OnClick", button, [[ control:CallMethod("AnimateThis", self) ]])
+	          button.hooked = true
+	     end
+	
+end
+
+hooksecurefunc('ActionButton_OnUpdate', Anum)
+--hooksecurefunc('ActionButton_UpdateAction', Anum)
+--hooksecurefunc('ActionButton_UpdateHotkeys', Anum)
