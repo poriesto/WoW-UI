@@ -15,31 +15,23 @@
     normal            = "Interface\\AddOns\\Lorti UI\\textures\\gloss",
     flash             = "Interface\\AddOns\\Lorti UI\\textures\\flash",
     hover             = "Interface\\AddOns\\Lorti UI\\textures\\hover",
+    --pushed            = "Interface\\Cooldown\\star4",--"Interface\\AddOns\\Lorti UI\\textures\\pushed",
     pushed            = "Interface\\AddOns\\Lorti UI\\textures\\pushed",
-    checked           = "Interface\\AddOns\\Lorti UI\\textures\\checked",
+	checked           = "Interface\\AddOns\\Lorti UI\\textures\\checked",
     equipped          = "Interface\\AddOns\\Lorti UI\\textures\\gloss_grey",
     buttonback        = "Interface\\AddOns\\Lorti UI\\textures\\button_background",
     buttonbackflat    = "Interface\\AddOns\\Lorti UI\\textures\\button_background_flat",
     outer_shadow      = "Interface\\AddOns\\Lorti UI\\textures\\outer_shadow",
-	frames            = "Interface\\AddOns\\Lorti UI\\textures\\swag"  
+	frames            = "Interface\\AddOns\\Lorti UI\\textures\\smooth"
 }
-  cfg.combopoints = {
-	  background = "BACKGROUND",
-	  text       = "PVPInfoTextFont",
-	  anch       = "CENTER",
-	  x          = 0,
-	  y          = 100,
-	  sizeX      = 600,
-	  sizeY      = 600,
-  }
-  cfg.tracker = 
+  cfg.tracker =
   {
 	  size = 35,
 	  x = 175,
 	  y = 0,
 	  anch = "CENTER",
   }
-  cfg.dbtracker = 
+  cfg.dbtracker =
   {
 	  size = 35,
 	  x = -105,
@@ -63,7 +55,7 @@
   }
 
   cfg.hotkeys = {
-    show            = false,
+    show            = true,
     fontsize        = 11,
     pos1             = { a1 = "TOPRIGHT", x = 0, y = 0 },
     pos2             = { a1 = "TOPLEFT", x = 0, y = 0 }, --important! two points are needed to make the hotkeyname be inside of the button
@@ -86,14 +78,14 @@
     spacing         = 0,
   }
 
-  cfg.font = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf"
+  cfg.font = "Interface\\AddOns\\Lorti UI\\fonts\\8428523.ttf"
 
   --adjust the oneletter abbrev?
   cfg.adjustOneletterAbbrev = true
-  
+
   --scale of the consolidated tooltip
   cfg.consolidatedTooltipScale = 1.2
-  
+
   --combine buff and debuff frame - should buffs and debuffs be displayed in one single frame?
   --if you disable this it is intended that you unlock the buff and debuffs and move them apart!
   cfg.combineBuffsAndDebuffs = false
@@ -127,17 +119,17 @@
       padding           = 4,
     },
     duration = {
-      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf",
+      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Regular.otf",
       size              = 11,
       pos               = { a1 = "BOTTOM", x = 0, y = 0 },
     },
     count = {
-      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf",
+      font              = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Regular.otf",
       size              = 11,
       pos               = { a1 = "TOPRIGHT", x = 0, y = 0 },
     },
   }
-  
+
 -- debuff frame settings
 
   cfg.debuffFrame = {    pos             = { a1 = "TOPRIGHT", af = "Minimap", a2 = "TOPLEFT", x = -35, y = -85 },
@@ -186,9 +178,9 @@
   --hand the config to the namespace for usage in other lua files (remember: those lua files must be called after the cfg.lua)
   ns.cfg = cfg
 
-Scale = 1.1;
+Scale = 1.25;
 frameAnch = "TOPLEFT"
 playerPosY = 0;
 playerPosX = 0;
-BarScale = 0.92;
+BarScale = 0.80;
 LARGE_NUMBER_SEPERATOR = ","

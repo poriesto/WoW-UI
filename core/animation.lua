@@ -5,15 +5,15 @@ local frame, texture, animationGroup, alpha1, scale1, scale2, rotation2
 
 for i = 1, animationsCount do
      frame = CreateFrame("Frame")
-     
+
      texture = frame:CreateTexture()
      texture:SetTexture([[Interface\Cooldown\star4]])
      texture:SetAlpha(0)
      texture:SetAllPoints()
      texture:SetBlendMode("ADD")
-     
+
      animationGroup = texture:CreateAnimationGroup()
-     
+
      alpha1 = animationGroup:CreateAnimation("Alpha")
      alpha1:SetChange(1)
      alpha1:SetDuration(0)
@@ -63,7 +63,7 @@ local function Anum(button, buttonType)
 	               actionButtonType = replace(actionButtonType, 'LEFT', '4')
 	               actionButtonType = replace(actionButtonType, 'MULTIBAR', 'MULTIACTIONBAR')
 	          end
-	     
+
 	          local key = GetBindingKey(actionButtonType)
 	          if key then
 	               button:RegisterForClicks("AnyDown")
@@ -73,9 +73,10 @@ local function Anum(button, buttonType)
 	          SecureHandlerWrapScript(button, "OnClick", button, [[ control:CallMethod("AnimateThis", self) ]])
 	          button.hooked = true
 	     end
-	
 end
 
 hooksecurefunc('ActionButton_OnUpdate', Anum)
 --hooksecurefunc('ActionButton_UpdateAction', Anum)
+--hooksecurefunc('ActionButton_UpdateFlash', Anum)
+--hooksecurefunc('ActionButton_UpdateUsable', Anum)
 --hooksecurefunc('ActionButton_UpdateHotkeys', Anum)

@@ -59,7 +59,7 @@ local cfg = ns.cfg
 	end
 	event_frame:SetScript('OnEvent', onevent)
 	event_frame:RegisterEvent('PLAYER_LOGIN')
-	
+
   -- REWORKING THE MINIMAP
 	local CF=CreateFrame("Frame")
 	CF:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -73,7 +73,7 @@ local cfg = ns.cfg
               		}) do
                  		v:SetVertexColor(.05, .05, .05)
 			end
-			select(2, TimeManagerClockButton:GetRegions()):SetVertexColor(1,1,1) 
+			select(2, TimeManagerClockButton:GetRegions()):SetVertexColor(1,1,1)
    			MinimapBorderTop:Hide()
 			MinimapZoomIn:Hide()
 			MinimapZoomOut:Hide()
@@ -158,26 +158,26 @@ local cfg = ns.cfg
 			}) do
 				v:SetAlpha(0)
 			end
-			for i=1,4 do 
+			for i=1,4 do
 				_G["PartyMemberFrame"..i.."PVPIcon"]:SetAlpha(0)
 				_G["PartyMemberFrame"..i.."NotPresentIcon"]:Hide()
 				_G["PartyMemberFrame"..i.."NotPresentIcon"].Show = function() end
 			end
 			PlayerFrameGroupIndicator:SetAlpha(0)
-			PlayerHitIndicator:SetText(nil) 
+			PlayerHitIndicator:SetText(nil)
 			PlayerHitIndicator.SetText = function() end
-			PetHitIndicator:SetText(nil) 
+			PetHitIndicator:SetText(nil)
 			PetHitIndicator.SetText = function() end
 		else
-			CastingBarFrameBorder:SetVertexColor(.05,.05,.05)    
+			CastingBarFrameBorder:SetVertexColor(.05,.05,.05)
 		end
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
         	CF:SetScript("OnEvent", nil)
 	end)
-   
+
  -- COLORING THE MAIN BAR
 	for i,v in pairs({
-		SlidingActionBarTexture0, SlidingActionBarTexture1,		
+		SlidingActionBarTexture0, SlidingActionBarTexture1,
         MainMenuBarTexture0, MainMenuBarTexture1,
 		MainMenuBarTexture2, MainMenuBarTexture3,
         MainMenuMaxLevelBar0, MainMenuMaxLevelBar1,
@@ -186,20 +186,20 @@ local cfg = ns.cfg
 		ReputationWatchBarTexture0, ReputationWatchBarTexture1,
 		ReputationWatchBarTexture2, ReputationWatchBarTexture3,
 		ReputationXPBarTexture0, ReputationXPBarTexture1,
-		ReputationXPBarTexture2, ReputationXPBarTexture3,	
+		ReputationXPBarTexture2, ReputationXPBarTexture3,
 	}) do
 
                  v:SetVertexColor(.2, .2, .2)
-  
-	end 	
+
+	end
 	for i=1,19 do _G["MainMenuXPBarDiv"..i]:SetTexture(Empty_Art) end
 	ExhaustionTick:SetAlpha(0)
         for i,v in pairs({
-		MainMenuBarLeftEndCap, MainMenuBarRightEndCap, 
-		StanceBarLeft, StanceBarMiddle, StanceBarRight, 
+		MainMenuBarLeftEndCap, MainMenuBarRightEndCap,
+		StanceBarLeft, StanceBarMiddle, StanceBarRight,
 	}) do
                 v:SetVertexColor(.35, .35, .35)
-	end 
+	end
 
  -- COLORING ARENA FRAMES
 	local CF = CreateFrame("Frame")
@@ -219,7 +219,7 @@ local cfg = ns.cfg
 				ArenaEnemyFrame2PetFrameTexture, ArenaEnemyFrame3PetFrameTexture,
 				ArenaEnemyFrame4PetFrameTexture, ArenaEnemyFrame5PetFrameTexture, }) do
                 		v:SetVertexColor(.05, .05, .05)
-	      		end 
+	      		end
 		elseif event == "ARENA_PREP_OPPONENT_SPECIALIZATIONS" or (event == "PLAYER_ENTERING_WORLD" and instanceType == "arena") then
 			for i,v in pairs({
 				ArenaPrepFrame1Texture, ArenaPrepFrame2Texture,
@@ -229,8 +229,8 @@ local cfg = ns.cfg
 				ArenaPrepFrame3SpecBorder, ArenaPrepFrame4SpecBorder,
 				ArenaPrepFrame5SpecBorder, }) do
                 		v:SetVertexColor(.05, .05, .05)
-	      		end 		
-		end 
+	      		end
+		end
 	end)
 
 --set SetTexture
@@ -268,12 +268,11 @@ addon:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 addon:SetScript("OnEvent", function()
 colour(sb, "mouseover")
 end)
---
 local targetPosY = playerPosY;
 local targetPosX = playerPosX*(-1) + 255;
 
---focus	
-FocusFrame:SetScale(Scale) 
+----focus
+FocusFrame:SetScale(Scale)
 
 local frames = {"PlayerFrame", "TargetFrame"};
 for i = 1, #frames do
@@ -294,7 +293,7 @@ end
 local g = CreateFrame("Frame")
 g:RegisterEvent("MERCHANT_SHOW")
 
-g:SetScript("OnEvent", function()  
+g:SetScript("OnEvent", function()
         local bag, slot
         for bag = 0, 4 do
                 for slot = 0, GetContainerNumSlots(bag) do
@@ -332,14 +331,14 @@ end)
 
 local FrameList = {"Player", "Target", "Focus"}
 local function UpdateHealthValues(...)
-	for i = 1, #FrameList do 
+	for i = 1, #FrameList do
 		local FrameName = FrameList[i]
 		local Health = AbbreviateLargeNumbers(UnitHealth(FrameName))
 		local HealthMax = AbbreviateLargeNumbers(UnitHealthMax(FrameName))
 		local HealthPercent = (UnitHealth(FrameName)/UnitHealthMax(FrameName))*100
 		local powerType, powerTypeString = UnitPowerType(FrameName)
 		local Power = UnitPower(FrameName, powerType)
-		_G[FrameName.."FrameHealthBar"].TextString:SetText(Health.."  | "..format("%.0f",HealthPercent).."%")
+		_G[FrameName.."FrameHealthBar"].TextString:SetText(Health.." | "..format("%.0f",HealthPercent).."%")
 		_G[FrameName.."FrameManaBar"].TextString:SetText(Power)
 	end
 end

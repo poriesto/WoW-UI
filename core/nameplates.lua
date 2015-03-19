@@ -18,7 +18,7 @@ CreateFrame('frame'):SetScript('OnUpdate', function(self, elapsed)
                     if not f.h.v then
                          f.h.v = f.h:CreateFontString(nil, "ARTWORK")    
                          f.h.v:SetPoint("CENTER", f.h, 'CENTER')
-                         f.h.v:SetFont("Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf", 9, 'OUTLINE')
+                         f.h.v:SetFont("Interface\\AddOns\\Lorti UI\\fonts\\8428523.ttf", 9, 'OUTLINE')
                     else
                          local _, maxh = f.h:GetMinMaxValues()
                          local val = f.h:GetValue()
@@ -48,9 +48,9 @@ f:SetScript("OnEvent", function(self,event,...)
 end);
 f:RegisterEvent("ADDON_LOADED");
 
-local fontName = "Interface\\AddOns\\Lorti UI\\fonts\\SourceCodePro-Black.otf"
+local fontName = "Interface\\AddOns\\Lorti UI\\fonts\\8428523.ttf"
 local fontHeight = 40
-local fFlags = ""
+local fFlags = "OUTLINE"
 local function FS_SetFont()
 	DAMAGE_TEXT_FONT = fontName
 	NAMEPLATE_FONT = fontName
