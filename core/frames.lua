@@ -2,11 +2,7 @@
   ---------------------------------------
   -- ACTIONS
   ---------------------------------------
-UFP = "UnitFramePortrait_Update"
-UICC = "Interface\\TargetingFrame\\UI-Classes-Circles"
-CIT = CLASS_ICON_TCOORDS
-hooksecurefunc(UFP,function(self) if self.portrait then if UnitIsPlayer(self.unit) and UnitIsVisible(self.unit) then self.portrait:SetTexture(UICC) self.portrait:SetTexCoord(unpack(CIT[select(2,UnitClass(self.unit))])) else self.portrait:SetTexCoord(0,1,0,1) end end end)
-  -- REMOVING UGLY PARTS OF UI
+ -- REMOVING UGLY PARTS OF UI
 	local event_frame = CreateFrame('Frame')
 	local errormessage_blocks = {
 	  'Способность пока недоступна',
@@ -346,3 +342,20 @@ PlayerFrame:Show()
 TargetFrame:ClearAllPoints()
 TargetFrame:SetPoint("LEFT", 332, 111)
 TargetFrame:Show()
+
+hooksecurefunc("UnitFramePortrait_Update",function(self)
+	--if self.unit == "player" or self.unit == "pet" then
+	--	return
+	--end
+	if self.portrait then
+		if UnitIsPlayer(self.unit) then
+			local t = CLASS_ICON_TCOORDS[select(2,UnitClass(self.unit))]
+			if t then
+				self.portrait:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
+				self.portrait:SetTexCoord(unpack(t))
+			end
+		else
+			self.portrait:SetTexCoord(0,1,0,1)
+		end
+	end
+end);
