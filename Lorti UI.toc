@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Interface: 70100
 ## Author: lorti
 ## Version: 1.0.1
@@ -11,3 +12,17 @@ core\actionbars.lua
 core\animation.lua
 core\minimap.lua
 core\nameplates.lua
+=======
+## Interface: 60100
+## Author: lorti, poriesto
+## Version: 2.0.0
+## Title: Lorti UI
+## Notes: Darkens default UI
+
+config.lua
+core\frames.lua
+core\buffs.lua
+core\actionbars.lua
+core\nameplates.lua
+core\animation.lua
+>>>>>>> 76485017c94a865c32ea2efa64a426bbb1229165
