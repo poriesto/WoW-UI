@@ -1,4 +1,4 @@
---Nameplates
+
 local fixvalue = function(val)
     if(val >= 1e6) then
         return ('%.2f'..SECOND_NUMBER_CAP):format(val / 1e6):gsub('%.?0+(['..FIRST_NUMBER_CAP..SECOND_NUMBER_CAP..'])$', '%1')
@@ -18,12 +18,11 @@ CreateFrame('frame'):SetScript('OnUpdate', function(self, elapsed)
                     if not f.h.v then
                          f.h.v = f.h:CreateFontString(nil, "ARTWORK")    
                          f.h.v:SetPoint("CENTER", f.h, 'CENTER')
-                         f.h.v:SetFont("Interface\\AddOns\\Lorti UI\\fonts\\8428523.ttf", 9, 'OUTLINE')
+                         f.h.v:SetFont(STANDARD_TEXT_FONT, 9, 'OUTLINE')
                     else
                          local _, maxh = f.h:GetMinMaxValues()
                          local val = f.h:GetValue()
-                         f.h.v:SetText(string.format("%d", math.floor((val/maxh)*100)).."%")
-                         --f.h.v:SetText(string.format("%s - %d%%", fixvalue(val), math.floor((val/maxh)*100)).."%")
+                         f.h.v:SetText(string.format("%s - %d%%", fixvalue(val), math.floor((val/maxh)*100)))
                     end
                end
           end

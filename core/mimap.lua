@@ -44,15 +44,11 @@
 		end
 	end)
 
-MinimapZoomIn:Hide()
-MinimapZoomOut:Hide()
-Minimap:EnableMouseWheel(true)
-Minimap:SetScript('OnMouseWheel', function(self, delta)
-    if delta > 0 then
-        Minimap_ZoomIn()
-    else
-        Minimap_ZoomOut()
-    end
-end)
-MiniMapTracking:ClearAllPoints()
-MiniMapTracking:SetPoint("TOPRIGHT", -26, 7)
+for i = 1, NUM_CHAT_WINDOWS do local eb = _G['ChatFrame'..i..'EditBox'] eb:Hide()eb:HookScript('OnEnterPressed', function(s)s:Hide() end)end;ChatFrame1:SetClampedToScreen(nil)
+ChatFrame1EditBox:SetPoint("TOPLEFT",GeneralDockManager,"TOPLEFT");
+ChatFrame1EditBox:EnableMouse(false);
+ChatFrame1:EnableMouse(false)
+ChatFrame1Tab:ClearAllPoints();
+ChatFrame1Tab:SetPoint("CENTER", UIParent, "CENTER", -990, -990);
+ChatFrame1Tab.SetPoint = function() end
+ChatFrame1:SetFont("Fonts\\ARIALN.TTF", 13, "OUTLINE");
