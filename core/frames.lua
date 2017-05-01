@@ -88,7 +88,7 @@
 				Boss3TargetFrameSpellBarBorder,
 				Boss4TargetFrameSpellBarBorder,
 				Boss5TargetFrameSpellBarBorder,
-				
+
 				CastingBarFrameBorder,
 				FocusFrameSpellBarBorder,
 				TargetFrameSpellBarBorder,
@@ -102,29 +102,29 @@
 			}) do
 				v:SetAlpha(0)
 			end
-			for i=1,4 do 
+			for i=1,4 do
 				_G["PartyMemberFrame"..i.."PVPIcon"]:SetAlpha(0)
 				_G["PartyMemberFrame"..i.."NotPresentIcon"]:Hide()
 				_G["PartyMemberFrame"..i.."NotPresentIcon"].Show = function() end
 			end
 			PlayerFrameGroupIndicator:SetAlpha(0)
-			PlayerHitIndicator:SetText(nil) 
+			PlayerHitIndicator:SetText(nil)
 			PlayerHitIndicator.SetText = function() end
-			PetHitIndicator:SetText(nil) 
+			PetHitIndicator:SetText(nil)
 			PetHitIndicator.SetText = function() end
 		else
-			CastingBarFrameBorder:SetVertexColor(.05,.05,.05)    
+			CastingBarFrameBorder:SetVertexColor(.05,.05,.05)
 		end
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
         	CF:SetScript("OnEvent", nil)
 	end)
-   
+
  -- COLORING THE MAIN BAR
 	for i,v in pairs({
 		SlidingActionBarTexture0,
-		
+
 		SlidingActionBarTexture1,
-		
+
         	MainMenuBarTexture0,
 		MainMenuBarTexture1,
 		MainMenuBarTexture2,
@@ -143,25 +143,25 @@
 		ReputationXPBarTexture0,
 		ReputationXPBarTexture1,
 		ReputationXPBarTexture2,
-		ReputationXPBarTexture3,	
+		ReputationXPBarTexture3,
 	}) do
 
                  v:SetVertexColor(.2, .2, .2)
-  
-	end 	
+
+	end
 	for i=1,19 do _G["MainMenuXPBarDiv"..i]:SetTexture(Empty_Art) end
 	ExhaustionTick:SetAlpha(0)
         for i,v in pairs({
 		MainMenuBarLeftEndCap,
-                MainMenuBarRightEndCap, 
+                MainMenuBarRightEndCap,
 		StanceBarLeft,
-		
+
 		StanceBarMiddle,
-		
-		StanceBarRight, 
+
+		StanceBarRight,
 	}) do
                 v:SetVertexColor(.35, .35, .35)
-	end 
+	end
 
  -- COLORING ARENA FRAMES
 	local CF = CreateFrame("Frame")
@@ -174,7 +174,7 @@
 			for i,v in pairs({
  				ArenaEnemyFrame1Texture,
 				ArenaEnemyFrame2Texture,
-				ArenaEnemyFrame3Texture, 
+				ArenaEnemyFrame3Texture,
 				ArenaEnemyFrame4Texture,
 				ArenaEnemyFrame5Texture,
 				ArenaEnemyFrame1SpecBorder,
@@ -185,11 +185,11 @@
 				ArenaEnemyFrame1PetFrameTexture,
 				ArenaEnemyFrame2PetFrameTexture,
 				ArenaEnemyFrame3PetFrameTexture,
-				ArenaEnemyFrame4PetFrameTexture, 
+				ArenaEnemyFrame4PetFrameTexture,
 				ArenaEnemyFrame5PetFrameTexture,
               		}) do
                 		v:SetVertexColor(.05, .05, .05)
-	      		end 
+	      		end
 		elseif event == "ARENA_PREP_OPPONENT_SPECIALIZATIONS" or (event == "PLAYER_ENTERING_WORLD" and instanceType == "arena") then
 			for i,v in pairs({
 				ArenaPrepFrame1Texture,
@@ -204,12 +204,12 @@
 				ArenaPrepFrame5SpecBorder,
 			}) do
                 		v:SetVertexColor(.05, .05, .05)
-	      		end 		
-		end 
+	      		end
+		end
 	end)
 
 
-	
+
 local FrameList = {"Player", "Target", "Focus"}
 local function UpdateHealthValues(...)
 	for i = 1, #FrameList do
@@ -289,8 +289,8 @@ end)
 local targetPosY = playerPosY;
 local targetPosX = playerPosX*(-1) + 255;
 
-PlayerFrame:SetScale(1.2)
-TargetFrame:SetScale(1.2)
+PlayerFrame:SetScale(Scale)
+TargetFrame:SetScale(Scale)
 
 hooksecurefunc("ActionButton_OnEvent",function(self, event, ...)
 if ( event == "PLAYER_TARGET_CHANGED" ) then
@@ -332,7 +332,7 @@ hooksecurefunc(getmetatable(PlayerFrameHealthBar).__index,"Show",function(s)
             s.st = true
         end
     end
-end) 
+end)
 
 PlayerFrame:SetUserPlaced(false)
 TargetFrame:SetUserPlaced(false)
@@ -344,9 +344,6 @@ TargetFrame:SetPoint("LEFT", 332, 111)
 TargetFrame:Show()
 
 hooksecurefunc("UnitFramePortrait_Update",function(self)
-	--if self.unit == "player" or self.unit == "pet" then
-	--	return
-	--end
 	if self.portrait then
 		if UnitIsPlayer(self.unit) then
 			local t = CLASS_ICON_TCOORDS[select(2,UnitClass(self.unit))]
